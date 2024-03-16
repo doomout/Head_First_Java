@@ -1,13 +1,15 @@
-public class Animal {
-    public void eat() {
+package ch7;
 
-    }
-  
-    public void roam() {
-  
-    }
-  
-    public void makeNoise() {
-  
-    }
+public class Animal {
+  public void eat() {
+
+  }
+
+  public void roam() {
+
+  }
+
+  public void makeNoise() {
+
+  }
 }
