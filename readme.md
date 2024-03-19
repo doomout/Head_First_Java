@@ -146,3 +146,18 @@ javac 파일명.java -encoding utf-8
 - final 인스턴스 변수값은 선언할 때 또는 생성자에서 대입해야 한다.
 - final 메서드는 오버라이드 할 수 없다.
 - final 클래스는 확장할 수 없다.(하위 클래스를 만들 수 없다.)
+11. 11강 요약 : 자료구조
+- java.util.List  
+sort(Comparator): 주어진 Comparator에 의해 정해지는 순서에 따라 리스트를 정렬한다.
+- java.util.Collections  
+sort(List) : 주어린 리스트를 그 리스트에  있는 원소들의 자연스러운 순서(오름차순)를 기준으로 정렬한다.    
+sort(List,  Comparator) : 주어진 리스트를 Comparator에 의해 정의되는 순서를 기준으로 정렬한다.
+- 제네릭에 대하여
+  - 제네릭을 쓰는 클래스(ArrayList등)의 인스턴스를 만드는 방법    
+    (예)new ArrayList<Song>()
+  - 제네릭 타입 변수를 선언하고 변수에 값을 대입하는 방법  
+    (예)List<Song> songList = new ArrayList<Song>()
+  - 제네릭 타입을 인자로 받아들이는 메서드 선언(호출) 방법  
+    (예)void foo(List<Song> list)
+        x.foo(songList)
+    
