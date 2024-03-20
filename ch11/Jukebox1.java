@@ -13,6 +13,7 @@ public class Jukebox1 {
         List<String> songList = MockSongs.getSongStrings();
         //리스트의 내용을 출력한다.
         System.out.println(songList);
+        
         // 알파벳 순서대로 곡 제목을 정렬한다.
         Collections.sort(songList);
         //정렬된 곡 제목을 출력한다.

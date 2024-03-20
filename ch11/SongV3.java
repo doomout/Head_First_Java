@@ -1,5 +1,6 @@
 package ch11;
 
+//SongV3 객체를 정렬할 때 다른 SongV3 객체하고 비교할 수 있다는 것을 뜻한다.
 class SongV3 implements Comparable<SongV3>{
     private String title;
     private String artist;
@@ -33,3 +34,8 @@ class SongV3 implements Comparable<SongV3>{
       return title;
     } 
 }
+
+/**실행 결과
+[somersault, cassidy, $10, havana, Cassidy, 50 ways]
+[$10, 50 ways, Cassidy, cassidy, havana, somersault]
+ */
