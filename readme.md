@@ -153,11 +153,21 @@ sort(Comparator): 주어진 Comparator에 의해 정해지는 순서에 따라 �
 sort(List) : 주어린 리스트를 그 리스트에  있는 원소들의 자연스러운 순서(오름차순)를 기준으로 정렬한다.    
 sort(List,  Comparator) : 주어진 리스트를 Comparator에 의해 정의되는 순서를 기준으로 정렬한다.
 - 제네릭에 대하여
-  - 제네릭을 쓰는 클래스(ArrayList등)의 인스턴스를 만드는 방법    
-    (예)new ArrayList<Song>()
-  - 제네릭 타입 변수를 선언하고 변수에 값을 대입하는 방법  
-    (예)List<Song> songList = new ArrayList<Song>()
-  - 제네릭 타입을 인자로 받아들이는 메서드 선언(호출) 방법  
-    (예)void foo(List<Song> list)
-        x.foo(songList)
-    
+```java
+//제네릭을 쓰는 클래스(ArrayList등)의 인스턴스를 만드는 방법    
+new ArrayList<Song>()
+//제네릭 타입 변수를 선언하고 변수에 값을 대입하는 방법  
+List<Song> songList = new ArrayList<Song>()
+//제네릭 타입을 인자로 받아들이는 메서드 선언(호출) 방법  
+void foo(List<Song> list)
+  x.foo(songList)
+```
+- 인터페이스 중 구현할 메서드가 1개인 경우 단일 추상 메서드라고 하고 SAM이라고 약어로 부른다.
+- SAM 은 람다 표현식으로 구현할 수 있다.
+```java
+songList.sort((one, two)->one.getTitle().compareTo(two.getTitle()));
+```
+- 컬렉션 API 세 가지 인터페이스 사용 조건
+  - List : 순서가 중요할 때
+  - Set : 유일성이 중요할 때
+  - Map : 키를 가지고 뭔가를 찾는 것이 중요할 때
