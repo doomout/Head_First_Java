@@ -171,3 +171,16 @@ songList.sort((one, two)->one.getTitle().compareTo(two.getTitle()));
   - List : 순서가 중요할 때
   - Set : 유일성이 중요할 때
   - Map : 키를 가지고 뭔가를 찾는 것이 중요할 때
+- hashCode() 와 equals()와 관련된 규칙
+  - 두 객체가 같으면 반드시 같은 해시 코드를 가져야 한다.
+  - 두 객체가 같으면 equals()메서드를 호출 했을 때 true를 리턴한다.
+  - 두 객체의 해시코드 값이 같다고 반드시 같은 것은 아니다. 하지만 두 객체가 같으면 두 해시코드는 반드시 같아야 한다.
+  - equals()를 오버라이드하면 반드시 hashCode()도 오버라이드 해야 한다.
+  - hashCode()에서는 기본적으로 힙에 있는 각 객체마다 유일한 값을 가지는 정수를 리턴한다.
+  - equals()메서드에서는 기본적으로 == 연산자를 써서 객체를 비교한다.
+```java
+a.equals(b) 가 true 라면 a.hashCode() == b.hashCode() 도 성립한다.
+
+하지만 a.hashCode() == b.hashCode() 가 성립해도 
+a.equals(b) 가 반드시 true인 것은 아니다.
+```
