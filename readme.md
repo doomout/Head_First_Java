@@ -184,3 +184,24 @@ a.equals(b) 가 true 라면 a.hashCode() == b.hashCode() 도 성립한다.
 하지만 a.hashCode() == b.hashCode() 가 성립해도 
 a.equals(b) 가 반드시 true인 것은 아니다.
 ```
+- TreeSet 원소는 반드시 Comparable 이어야 합니다.
+```java
+//집합에 들어가는 원소가 Comparable를 구현하는 타입이어야 한다. 
+class Book implements Comparable<Book> {
+  String title;
+  public Book(String t) {
+    title = t;
+  }
+
+  public int compareTo(Book other) {
+    return title.compareTo(other.title);
+  }
+}
+//또는~
+// Comparator 를 인자로 받아들이는 TreeSet의 오버로드된 생성자를 사용해야 한다.
+class BookCompare implements Comparator<Book> {
+  public int compare(Book one, Book two) {
+    return one.title.compareTo(two.title);
+  }
+}
+```
