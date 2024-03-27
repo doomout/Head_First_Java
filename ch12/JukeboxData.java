@@ -39,21 +39,21 @@ public class JukeboxData {
 
 
 public static void main(String[] args) {
-    Songs songs = new Songs();
-    List<Song> songList = songs.getSongs();
+        Songs songs = new Songs();
+        List<Song> songList = songs.getSongs();
 
-    // ORDER MATTERS
-    List<String> genres = songList.stream().map(song -> song.getGenre())
+        // ORDER MATTERS
+        List<String> genres = songList.stream().map(song -> song.getGenre())
+                                    .distinct()
+                                    .collect(toList());
+        System.out.println("genres = " + genres);
+
+        System.out.println(songList.stream().map(song -> song.getGenre())
                                 .distinct()
-                                .collect(toList());
-    System.out.println("genres = " + genres);
+                                .count());
 
-    System.out.println(songList.stream().map(song -> song.getGenre())
-                            .distinct()
-                            .count());
-
-    Map<String, Long> genreCount = songList.stream().map(song -> song.getGenre())
-                                        .collect(groupingBy(Function.identity(), counting()));
-    System.out.println("genreCount = " + genreCount);
-}
+        Map<String, Long> genreCount = songList.stream().map(song -> song.getGenre())
+                                            .collect(groupingBy(Function.identity(), counting()));
+        System.out.println("genreCount = " + genreCount);
+    }
 }
