@@ -1,8 +1,7 @@
 #헤드퍼스트 자바 3판  
-다시 공부 하는 자바 
 - IDE : vscode
 - 자바 : openjdk version "17.0.7"  
------------이슈 기록-------------
+-----------요약 정리-------------
 1. 한글이 포함되어 있는 경우 컴파일시 에러나면 다음과 같이 컴파일
 ```java
 javac 파일명.java -encoding utf-8 
@@ -14,20 +13,10 @@ javac 파일명.java -encoding utf-8
 - 클래스 : 객체를 만들기 위한 설계도
 - 객체 : 고유의  변수, 고유의 기능을 지정할 수 있다.
 3. 3장 요약 : 원시 변수와 레퍼런스
-- 자바는 타입(type)를 철저하게 따진다.
-- 변수는 원시 변수, 객체 레퍼런스로 나뉜다.
 - 원시 타입  
-    - 불리언과 문자  
-    boolean : true 또는 false  
-    char 16비트 : 0~65535  
-    - 정수  
-    byte 8비트 : -128~127  
-    short 16비트 : -32768~32767  
-    int 32비트  
-    long 64비트  
-    - 부동 소수점 수  
-    float 32비트   
-    double 64비트  
+    - 불리언과 문자 : boolean, char
+    - 정수 : byte, short, int, long 
+    - 부동 소수점 수 : float, double 
 - 객체 레퍼런스
     - 객체 레퍼런세에 객체 자체가 들어가는 것이 아니다.
     - 객체는 변수에 집어 넣을 수 없다.
@@ -172,7 +161,6 @@ songList.sort((one, two)->one.getTitle().compareTo(two.getTitle()));
   - equals()메서드에서는 기본적으로 == 연산자를 써서 객체를 비교한다.
 ```java
 a.equals(b) 가 true 라면 a.hashCode() == b.hashCode() 도 성립한다.
-
 하지만 a.hashCode() == b.hashCode() 가 성립해도 
 a.equals(b) 가 반드시 true인 것은 아니다.
 ```
@@ -189,8 +177,7 @@ class Book implements Comparable<Book> {
     return title.compareTo(other.title);
   }
 }
-//또는~
-// Comparator 를 인자로 받아들이는 TreeSet의 오버로드된 생성자를 사용해야 한다.
+// 또는~ Comparator 를 인자로 받아들이는 TreeSet의 오버로드된 생성자를 사용해야 한다.
 class BookCompare implements Comparator<Book> {
   public int compare(Book one, Book two) {
     return one.title.compareTo(two.title);
