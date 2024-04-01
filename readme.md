@@ -288,12 +288,13 @@ throw new NoCaffeineException();
   - BoxLayout 는 프레임의 기본 레이아웃 관리자고, FlowLayout 는 패널의 기본 레이아웃 관리자다.
   - 패널에서 FlowLayout 이 아닌 다른 레이아웃 관리자를 사용하고 싶으면 패널에 대해 setLayout()를 호출해야 한다.
 16. 16강 요약 :직렬화와 입출력
+- 직렬화
   - 객체를 직렬화 하면 객체의 상태를 저장할 수 있다.
   - 객체를 직렬화하려면 ObjectOutputStream 이 필요하다.
   - 스트림에는 연결 스트림과 연쇄 스트림이 있다.
   - 연결 스트림 : 출발지나 목적지에 대한 연결을 나타낸다.
-  - 연쇄 스트림 : 출발지 또는 목적지에 연결을 할수 없기에 반드시 연쇄 스트림 또는 다른 스트림에 연쇄 되어야 한다.
-  - 객체를 직렬화해서 파일로 저장하고 싶다면 FileOutputStream 을 만들고 그 스트림에 ObjectOutputStream 을 연쇄 키면 된다.
+  - 연쇄 스트림 : 출발지 또는 목적지에 연결을 할 수 없기에 연쇄 스트림 또는 다른 스트림에 연쇄 되어야 한다.
+  - 객체를 파일로 저장하고 싶다면 FileOutputStream 을 만들고 그 스트림에 ObjectOutputStream 을 연쇄 키면 된다.
   - 객체를 직렬화 할 때는 ObjectOutputStream 의 writeObject(theObject)메서드를 호출한다.
   - Serializable 인터페이스를 구현한 객체만 직렬화 할 수 있다.
   - 객체가 직렬화되면 그 객체와 연관된 모든 객체가 직렬화한다.
@@ -304,3 +305,13 @@ throw new NoCaffeineException();
   - readObject() 의 리턴 타입은 Object 이므로 역직렬화 과정에서 원래 타입으로 캐스팅 해야 한다.
   - 정적 변수는 직렬화 되지 않는다.
   - 직렬화를 구현하는 클래스가 나중에 바뀔 수 있다면 그 클래스에 serialVersionUID를 넣어줘야 한다.
+- 입출력
+  - 텍스트 파일에 저장할 때는 FileWriter 연결 스트림부터 시작한다.
+  - FileWriter 를  BufferedWriter 에 연쇄시키면 효율을 향상 시킬 수 있다.
+  - File 객체는 특정 경로에 있는 파일을  나타내며 실제 파일의 내용을 나타내는 것은 아니다.
+  - File 객체를 가지고 디렉터리를 만들거나 돌아다니거나 삭제할 수 있다.
+  - String 으로 된 파일명을 가지는 스트림에서는 File 객체를 사용하는 것이 안전한다.
+  - 텍스트 파일을 읽을 때는 FileReader 연결 스트림부터 시작한다.
+  - FileReader 를 BufferedReader 에 연쇄시키면 효율을 향상 시킬 수 있다.
+  - 텍스트 파일을 파싱하려면 파일이 서로  다른 부분을 구분할 수 있게 만들어져 있는지 확인해야 한다.
+  - String 를 몇 개의 개발 토큰으로 분리시키기 위한 용도로는 String split() 메서드를 쓰면 된다.
