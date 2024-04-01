@@ -3,6 +3,11 @@ package BeatBox;
 import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import static javax.sound.midi.ShortMessage.*;
@@ -52,6 +57,14 @@ public class BeatBox {
         JButton downTempo = new JButton("Tempo Down");
         downTempo.addActionListener(e -> changeTempo(0.97f));//기본 템포가 1.0이기 때문에 클릭할 때 마다 +,- 3%씩 바꿔준다.
         buttonBox.add(downTempo);
+
+        JButton save = new JButton("serializeIt"); //현재 패턴이 저장된다.
+        save.addActionListener(e -> writeFile());
+        buttonBox.add(save);
+    
+        JButton restore = new JButton("restore"); //저장된 패턴을 불러오고 체크 상자를 리셋한다.
+        restore.addActionListener(e -> readFile());
+        buttonBox.add(restore);
 
         Box nameBox = new Box(BoxLayout.Y_AXIS);
         for (String instrumentName : instrumentNames) {
@@ -167,5 +180,43 @@ public class BeatBox {
             e.printStackTrace();
         }
         return event;
+    }
+
+     private void writeFile() {
+        //각 체크 상자의 상태를 담아두기 위한 boolean 배열
+        boolean[] checkboxState = new boolean[256];
+
+        //체크박스 리스트에 대해 반복문을 돌리며 각각의 상태를 배열에 저장
+        for (int i = 0; i < 256; i++) {
+            JCheckBox check = checkboxList.get(i);
+            if (check.isSelected()) {
+                checkboxState[i] = true;
+            }
+        }
+        //배열을 직렬화해서 저장
+        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("Checkbox.ser"))) {  //TWR
+            os.writeObject(checkboxState);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readFile() {
+        boolean[] checkboxState = null;
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream("Checkbox.ser"))) { //TWR
+            //역직렬화 후에는 원래 상태였던 boolean[] 타입으로 캐스팅 해야 한다.
+            checkboxState = (boolean[]) is.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //반복하며 저장되어 있던 체크 상태로 복구한다.
+        for (int i = 0; i < 256; i++) {
+            JCheckBox check = checkboxList.get(i);
+            check.setSelected(checkboxState[i]);
+        }
+
+        sequencer.stop(); //현재 재생중인 것이 있다면 중지시킨다.
+        buildTrackAndStart();
     }
 }
