@@ -3,6 +3,7 @@ package ch17;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.channels.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 public class DailyAdviceServer {
@@ -25,7 +26,9 @@ public class DailyAdviceServer {
                 SocketChannel clientChannel = serverChannel.accept();
 
                 //클라이언트 채널에 대해 출력 스트림을 생성하고 PrintWriter()로 감싼다.
-                PrintWriter writer = new PrintWriter(Channels.newOutputStream(clientChannel));
+                //PrintWriter writer = new PrintWriter(Channels.newOutputStream(clientChannel));
+                // PrintWriter를 생성할 때 UTF-8 문자 인코딩을 명시적으로 지정한다.(한글 출력시 에러나서 수정)
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(Channels.newOutputStream(clientChannel), StandardCharsets.UTF_8), true);
                 String advice = getAdvice();
 
                 //클라이언트에 String로 된 메세지을 보낸다.

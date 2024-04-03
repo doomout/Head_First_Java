@@ -19,6 +19,7 @@ public class DailyAdviceClient {
 
             //SocketChannel 로 부터 가져온 Reader에 BufferedReader를 연쇄 시킨다.
             BufferedReader reader = new BufferedReader(channelReader);
+
             //readLine() 는 파일에 연쇄된 BufferedReader을 쓸 때 사용한 readLine()와 완전히 똑같다.
             //BufferedReader의 메서드를 호출할 때 그 객체에서는 문자들이 어디에서 오는지에 대해 전혀 몰라도 된다.
             String advice = reader.readLine();
