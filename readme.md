@@ -315,3 +315,32 @@ throw new NoCaffeineException();
   - FileReader 를 BufferedReader 에 연쇄시키면 효율을 향상 시킬 수 있다.
   - 텍스트 파일을 파싱하려면 파일이 서로  다른 부분을 구분할 수 있게 만들어져 있는지 확인해야 한다.
   - String 를 몇 개의 개발 토큰으로 분리시키기 위한 용도로는 String split() 메서드를 쓰면 된다.
+17. 17강 요약 : 네트워킹과 스레드
+- 네트워킹
+  - 클라이언트와 서버 애플리케이션은 채널을 이용하여 통신을 한다.
+  - 채널은 두 개의 서로 다른 물리적인 시스템에서 돌아갈 수 있는 두 애플리케이션 사이의 연결을 나타낸다.
+  - 클라이언트에서는 서버 애플리케이션의 IP 주소와 TCP 포트 번호를 알아야 한다.
+  - TCP 포트는 특정 서버 애플리케이션에 할당된 16비트 부호가 없는 정수다.
+  - 0부터 1023 까지의 포트 번호는 HTTP, FTP, SMTP 같은 잘 알려진 서비스 용으로 예약되어 있다.
+```java
+public void go() {
+    //서버 주소와 포트 번호
+    InetSocketAddress serverAddress = new InetSocketAddress("127.0.0.1", 6050);
+    //TWR 구문을 이용하여 코드가 완료되면 SocketChannel 이 자동으로 닫히도록 만든다.
+    //open() 메서드를 호출하여 SocketChannel 을 생성한다.
+    try (SocketChannel socketChannel = SocketChannel.open(serverAddress)) {
+
+        //SocketChannel 로 부터 읽어들이는 Reader을 생성한다.
+        Reader channelReader = Channels.newReader(socketChannel, StandardCharsets.UTF_8);
+
+        //SocketChannel 로 부터 가져온 Reader에 BufferedReader를 연쇄 시킨다.
+        BufferedReader reader = new BufferedReader(channelReader);
+        
+        String advice = reader.readLine();
+        System.out.println("오늘 당신이 할 일 : " + advice);
+        reader.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+```
