@@ -40,16 +40,13 @@ class RyanAndMonicaJob implements Runnable {
     }
 
     private void goShopping(int amount) {
-        //synchronized 를 사용하여 1 스레드 1 작업만 가능하게 잠군다.
-        synchronized (account) {
-            //계좌 잔고를 확인하고 충분하면 돈을 쓴다.
-            if (account.getBalance() >= amount) {
-                System.out.println(name + "는 돈을 쓸 예정이다.");
-                account.spend(amount);
-                System.out.println(name + "는 지출 완료");
-            } else {
-                System.out.println("미안 자네는 돈이 없어. " + name);
-            }
+        //계좌 잔고를 확인하고 충분하면 돈을 쓴다.
+        if (account.getBalance() >= amount) {
+            System.out.println(name + "는 돈을 쓸 예정이다.");
+            account.spend(amount);
+            System.out.println(name + "는 지출 완료");
+        } else {
+            System.out.println("미안 자네는 돈이 없어. " + name);
         }
     }
 }
@@ -62,7 +59,8 @@ class BankAccount {
         return balance;
     }
 
-    public void spend(int amount) {
+    //synchronized 로 잠금으로 통찬 잔고가 - 될 일이 없어졌다.
+    public synchronized void spend(int amount) {
         balance = balance - amount;
         //잔고가 - 되었을 때
         if (balance < 0) {
