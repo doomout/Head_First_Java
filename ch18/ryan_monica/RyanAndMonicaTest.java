@@ -2,7 +2,6 @@ package ch18.ryan_monica;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class RyanAndMonicaTest {
     public static void main(String[] args) throws InterruptedException {
