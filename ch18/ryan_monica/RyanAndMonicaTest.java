@@ -40,13 +40,16 @@ class RyanAndMonicaJob implements Runnable {
     }
 
     private void goShopping(int amount) {
-         //계좌 잔고를 확인하고 충분하면 돈을 쓴다.
-        if (account.getBalance() >= amount) {
-            System.out.println(name + "는 돈을 쓸 예정이다.");
-            account.spend(amount);
-            System.out.println(name + "는 지출 완료");
-        } else {
-            System.out.println("미안 자네는 돈이 없어. " + name);
+        //synchronized 를 사용하여 1 스레드 1 작업만 가능하게 잠군다.
+        synchronized (account) {
+            //계좌 잔고를 확인하고 충분하면 돈을 쓴다.
+            if (account.getBalance() >= amount) {
+                System.out.println(name + "는 돈을 쓸 예정이다.");
+                account.spend(amount);
+                System.out.println(name + "는 지출 완료");
+            } else {
+                System.out.println("미안 자네는 돈이 없어. " + name);
+            }
         }
     }
 }
@@ -83,3 +86,10 @@ Monica는 지출 완료
 초과 인출!
 Ryan는 지출 완료
  */
+
+/** synchronized 사용 결과
+---
+Ryan는 돈을 쓸 예정이다.
+Ryan는 지출 완료
+미안 자네는 돈이 없어. Monica 
+*/
