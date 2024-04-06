@@ -26,7 +26,8 @@ class Balance {
     int balance = 0;
 
     //balance의 현재 값이 아닌 balance 값을 읽는 순간의 값에 1을 더하여 잔고 값을 1 증가 시킨다.
-    public void increment() {
+    //synchronized 으로 지정하여 모든 단계가 끝나야 다음 스레드가 접근할 수 있다.
+    public synchronized void increment() {
         balance++;
     }
 }
@@ -37,4 +38,11 @@ class Balance {
  balance = 997
  balance = 991
  balance = 994
+
+synchronized  설정 후 5번 실행 결과
+balance = 1000
+balance = 1000
+balance = 1000
+balance = 1000
+balance = 1000
  */
