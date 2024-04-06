@@ -5,21 +5,22 @@ import java.util.concurrent.Executors;
 
 public class RyanAndMonicaTest {
     public static void main(String[] args) throws InterruptedException {
-        //BankAccount 인스턴스는 단 하나다.
-        BankAccount account = new BankAccount();
+        for (int i = 0; i < 10; i++) { //테스트로 10번 반복
+            //BankAccount 인스턴스는 단 하나다.
+            BankAccount account = new BankAccount();
 
-        //라이언은 50을, 모니카는 100을 인출할 것이다.
-        RyanAndMonicaJob ryan = new RyanAndMonicaJob("Ryan", account, 50);
-        RyanAndMonicaJob monica = new RyanAndMonicaJob("Monica", account, 100);
-        //두 작업을 위해 두개의 스레드가 있는 스레트 풀을 만들었다.
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        //두 작업을 실행 시켰다.
-        executor.execute(ryan); 
-        executor.execute(monica);
-        //스레드 풀을 닫았다.
-        executor.shutdown();
-        System.out.println("---");
-    
+            //라이언은 50을, 모니카는 100을 인출할 것이다.
+            RyanAndMonicaJob ryan = new RyanAndMonicaJob("Ryan", account, 50);
+            RyanAndMonicaJob monica = new RyanAndMonicaJob("Monica", account, 100);
+            //두 작업을 위해 두개의 스레드가 있는 스레트 풀을 만들었다.
+            ExecutorService executor = Executors.newFixedThreadPool(2);
+            //두 작업을 실행 시켰다.
+            executor.execute(ryan); 
+            executor.execute(monica);
+            //스레드 풀을 닫았다.
+            executor.shutdown();
+            System.out.println("---");
+        }    
     }
 }
 
@@ -67,26 +68,3 @@ class BankAccount {
         }
     }
 }
-
-
-/**2회 실행 출력 결과
----
-Ryan는 돈을 쓸 예정이다.
-Monica는 돈을 쓸 예정이다.
-초과 인출!
-Monica는 지출 완료
-Ryan는 지출 완료
----
-Monica는 돈을 쓸 예정이다.
-Ryan는 돈을 쓸 예정이다.
-Monica는 지출 완료
-초과 인출!
-Ryan는 지출 완료
- */
-
-/** synchronized 사용 결과
----
-Ryan는 돈을 쓸 예정이다.
-Ryan는 지출 완료
-미안 자네는 돈이 없어. Monica 
-*/
